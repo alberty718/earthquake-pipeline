@@ -1,2 +1,7 @@
 .env
 SPEC.md
+dbt/venv/
+dbt/target/
+dbt/dbt_packages/
+dbt/logs/
+ingestion/venv
