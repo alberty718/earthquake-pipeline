@@ -8,3 +8,5 @@ CREATE TABLE IF NOT EXISTS raw.earthquakes_raw (
     raw_json JSONB NOT NULL,
     loaded_at TIMESTAMPTZ DEFAULT now()
 );
+
+CREATE DATABASE airflow_db;
