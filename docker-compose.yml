@@ -29,6 +29,7 @@ services:
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
     volumes:
       - ./airflow/dags:/opt/airflow/dags
+      - ./ingestion:/opt/airflow/ingestion
     depends_on:
       - postgres
 
