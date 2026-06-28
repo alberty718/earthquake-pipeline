@@ -5,3 +5,17 @@ sources:
     schema: raw
     tables:
       - name: earthquakes_raw
+
+models:
+  - name: stg_earthquakes
+    columns:
+      - name: event_id
+        tests:
+          - not_null
+          - unique
+      - name: magnitude
+        tests:
+          - not_null
+      - name: origin_time
+        tests:
+          - not_null
