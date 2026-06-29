@@ -55,7 +55,7 @@ marts.mart_significant_events ← mag >= 5.0 or alert is not null
 
 - Docker + Docker Compose
 - Git
-- Python 3.11+ (for Fernet key generation)
+- - Python 3.11 or 3.12 (3.14 is not supported by dbt)
 
 ### Installation
 
