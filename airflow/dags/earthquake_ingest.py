@@ -25,11 +25,14 @@ def fetch_task():
 def validate_task(ti):
     events = ti.xcom_pull(task_ids='fetch_from_api')
     if not events:
-        raise ValueError("No events fetched from API")
+        logger.info("No events in last 30 minutes, skipping")
+        return []
     return events
 
 def insert_task(ti):
     events = ti.xcom_pull(task_ids='validate_response')
+    if not events:
+        return 0
     conn = psycopg2.connect(
         dbname=os.getenv("POSTGRES_DB"),
         user=os.getenv("POSTGRES_USER"),
