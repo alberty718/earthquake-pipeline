@@ -101,6 +101,17 @@ docker compose up -d --build
 
 ---
 
+## Data Quality
+
+dbt tests are configured for all models:
+
+| Test | Models |
+|---|---|
+| `not_null` | `event_id`, `magnitude`, `origin_time` in staging; `day`, `events_count` in daily stats; `region` in region stats; `event_id` in significant events |
+| `unique` | `event_id` in staging; `day` in daily stats; `event_id` in significant events |
+
+---
+
 ## Project Structure
 
 ```
