@@ -10,4 +10,13 @@ CREATE TABLE IF NOT EXISTS raw.earthquakes_raw (
     loaded_at   TIMESTAMPTZ DEFAULT now()
 );
 
+CREATE TABLE IF NOT EXISTS monitoring.daily_run_log (
+    id              SERIAL PRIMARY KEY,
+    run_date        DATE NOT NULL,
+    dag_id          TEXT NOT NULL,
+    events_loaded   INTEGER,
+    dbt_status      TEXT,
+    finished_at     TIMESTAMPTZ DEFAULT now()
+);
+
 CREATE DATABASE airflow_db;
