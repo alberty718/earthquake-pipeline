@@ -4,9 +4,10 @@ CREATE SCHEMA IF NOT EXISTS marts;
 CREATE SCHEMA IF NOT EXISTS monitoring;
 
 CREATE TABLE IF NOT EXISTS raw.earthquakes_raw (
-    id SERIAL PRIMARY KEY,
-    raw_json JSONB NOT NULL,
-    loaded_at TIMESTAMPTZ DEFAULT now()
+    id          SERIAL PRIMARY KEY,
+    event_id    TEXT UNIQUE,
+    raw_json    JSONB NOT NULL,
+    loaded_at   TIMESTAMPTZ DEFAULT now()
 );
 
 CREATE DATABASE airflow_db;
