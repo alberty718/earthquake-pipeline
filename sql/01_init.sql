@@ -18,5 +18,3 @@ CREATE TABLE IF NOT EXISTS monitoring.daily_run_log (
     dbt_status      TEXT,
     finished_at     TIMESTAMPTZ DEFAULT now()
 );
-
-CREATE DATABASE airflow_db;
