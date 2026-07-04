@@ -18,17 +18,17 @@ with DAG(
 
     t1 = BashOperator(
         task_id='dbt_run_staging',
-        bash_command='cd /opt/airflow/dbt && dbt run -s stg_earthquakes --profiles-dir /opt/airflow/dbt'
+        bash_command='export DBT_LOG_PATH=/tmp/dbt_logs && cd /opt/airflow/dbt && dbt run -s stg_earthquakes --profiles-dir /opt/airflow/dbt --no-write-json 2>&1'
     )
 
     t2 = BashOperator(
         task_id='dbt_run_marts',
-        bash_command='cd /opt/airflow/dbt && dbt run -s mart_daily_stats mart_region_stats mart_significant_events --profiles-dir /opt/airflow/dbt'
+        bash_command='export DBT_LOG_PATH=/tmp/dbt_logs && cd /opt/airflow/dbt && dbt run -s mart_daily_stats mart_region_stats mart_significant_events --profiles-dir /opt/airflow/dbt --no-write-json 2>&1'
     )
 
     t3 = BashOperator(
         task_id='dbt_test',
-        bash_command='cd /opt/airflow/dbt && dbt test --profiles-dir /opt/airflow/dbt'
+        bash_command='export DBT_LOG_PATH=/tmp/dbt_logs && cd /opt/airflow/dbt && dbt test --profiles-dir /opt/airflow/dbt --no-write-json 2>&1'
     )
 
     t1 >> t2 >> t3

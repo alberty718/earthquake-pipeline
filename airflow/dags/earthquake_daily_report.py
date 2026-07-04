@@ -48,7 +48,7 @@ with DAG(
 
     t1 = BashOperator(
         task_id='run_models',
-        bash_command='cd /opt/airflow/dbt && dbt run --profiles-dir /opt/airflow/dbt'
+        bash_command='export DBT_LOG_PATH=/tmp/dbt_logs && cd /opt/airflow/dbt && dbt run --profiles-dir /opt/airflow/dbt --no-write-json 2>&1'
     )
 
     t2 = PythonOperator(task_id='write_run_log', python_callable=write_run_log)

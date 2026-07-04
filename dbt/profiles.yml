@@ -1,12 +1,12 @@
 earthquake_pipeline:
   outputs:
     dev:
-      dbname: earthquake_db
-      host: postgres
-      pass: eq_pw
+      dbname: "{{ env_var('POSTGRES_DB') }}"
+      host: "{{ env_var('POSTGRES_HOST') }}"
+      password: "{{ env_var('POSTGRES_PASSWORD') }}"
       port: 5432
       schema: raw
       threads: 4
       type: postgres
-      user: earthquake_user
+      user: "{{ env_var('POSTGRES_USER') }}"
   target: dev
