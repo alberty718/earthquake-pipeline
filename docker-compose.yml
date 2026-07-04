@@ -14,8 +14,8 @@ services:
       timeout: 5s
       retries: 5
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/01_init.sql
+      - ./sql/create_airflow_db.sh:/docker-entrypoint-initdb.d/02_create_airflow_db.sh
   airflow:
     build: ./airflow
     env_file: .env
