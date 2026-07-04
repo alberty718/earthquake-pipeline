@@ -96,6 +96,10 @@ Open `http://localhost:8080`
 Login: value of `AIRFLOW_ADMIN_USER` from `.env`  
 Password: from the command above
 
+6. Enable and trigger the DAGs
+
+Trigger `earthquake_ingest` first to populate raw data, then `earthquake_transform` and `earthquake_daily_report` will have data to work with.
+
 ---
 
 ## Data Model
