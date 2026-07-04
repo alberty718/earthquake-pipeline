@@ -84,7 +84,23 @@ python3 -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().
 docker compose up -d --build
 ```
 
-5. Open Airflow UI at `http://localhost:8080` and enable the DAGs
+5. Build and start the stack
+
+```bash
+docker compose up -d --build
+```
+
+Wait ~1 minute for Airflow to initialize before opening the UI.
+
+6. Get Airflow UI password
+
+```bash
+docker compose logs airflow | grep password
+```
+
+Open `http://localhost:8080`  
+Login: value of `AIRFLOW_ADMIN_USER` from `.env`  
+Password: from the command above
 
 ---
 
