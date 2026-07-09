@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
 import json
+from psycopg2.extras import execute_values
 
 
 load_dotenv()
@@ -23,16 +24,21 @@ def fetch_events(start_time, end_time):
     return data["features"]
 
 def insert_events(events, cur):
-    for event in events:
-        cur.execute(
-            """
-            INSERT INTO raw.usgs_earthquakes (event_id, raw_json)
-            VALUES (%s, %s)
-            ON CONFLICT (event_id) DO NOTHING
-            """,
-            (event['id'], json.dumps(event))
-        )
-    return len(events)
+    if not events:
+        return 0
+    data_to_insert = [
+        (event['id'], json.dumps(event))
+        for event in events
+    ]
+    query = """
+        INSERT INTO raw.usgs_earthquakes (event_id, raw_json)
+        VALUES %s
+        ON CONFLICT (event_id) DO UPDATE 
+        SET 
+            raw_json = EXCLUDED.raw_json,
+            loaded_at = NOW()
+    """
+    return cur.rowcount
 
 if __name__ == "__main__":
     conn = psycopg2.connect(
