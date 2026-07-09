@@ -19,15 +19,15 @@ USGS API
 [Python producer]
    │  upsert by event_id
    ▼
-raw.earthquakes_raw           ← raw JSON + loaded_at
+raw.usgs_earthquakes           ← raw JSON + loaded_at
    │
    ▼  dbt run
-staging.stg_earthquakes       ← typed columns, region parsed from place
+staging.earthquakes       ← typed columns, region parsed from place
    │
    ▼  dbt run
-marts.mart_daily_stats        ← aggregated by day
-marts.mart_region_stats       ← aggregated by region
-marts.mart_significant_events ← mag >= 5.0 or alert is not null
+marts.daily_stats        ← aggregated by day
+marts.region_stats       ← aggregated by region
+marts.significant_events ← mag >= 5.0 or alert is not null
 ```
 
 **Orchestration — 3 Airflow DAGs:**
@@ -106,12 +106,12 @@ Trigger `earthquake_ingest` first to populate raw data, then `earthquake_transfo
 
 | Table | Layer | Description |
 |---|---|---|
-| `raw.earthquakes_raw` | Raw | Raw JSON from USGS API, upsert by event_id |
-| `staging.stg_earthquakes` | Staging | Typed columns, region extracted from place field |
-| `marts.mart_daily_stats` | Mart | Events count, avg/max magnitude per day |
-| `marts.mart_region_stats` | Mart | Events count, avg magnitude and depth per region |
-| `marts.mart_significant_events` | Mart | Events with mag >= 5.0 or alert level set |
-| `monitoring.daily_run_log` | Monitoring | Daily DAG run log |
+| `raw.usgs_earthquakes` | Raw | Raw JSON from USGS API, upsert by event_id |
+| `staging.earthquakes` | Staging | Typed columns, region extracted from place field |
+| `marts.daily_stats` | Mart | Events count, avg/max magnitude per day |
+| `marts.region_stats` | Mart | Events count, avg magnitude and depth per region |
+| `marts.significant_events` | Mart | Events with mag >= 5.0 or alert level set |
+| `monitoring.daily_logs` | Monitoring | Daily DAG run log |
 
 ---
 
@@ -141,21 +141,25 @@ earthquake-pipeline/
 ├── dbt/
 │   ├── dbt_project.yml
 │   ├── profiles.yml
+│   └── macros/
+│       └── generate_schema_name.sql
 │   └── models/
 │       ├── staging/
-│       │   ├── stg_earthquakes.sql
+│       │   ├── earthquakes.sql
 │       │   └── schema.yml
 │       └── marts/
-│           ├── mart_daily_stats.sql
-│           ├── mart_region_stats.sql
-│           ├── mart_significant_events.sql
+│           ├── daily_stats.sql
+│           ├── region_stats.sql
+│           ├── significant_events.sql
 │           └── schema.yml
 ├── ingestion/
 │   ├── Dockerfile
 │   ├── requirements.txt
 │   └── fetch_earthquakes.py
 └── sql/
-    └── init.sql
+    ├── 01_init.sql
+    └── 02_create_airflow_db.sh
+
 ```
 
 ---
