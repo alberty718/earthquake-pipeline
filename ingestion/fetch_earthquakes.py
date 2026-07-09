@@ -38,6 +38,7 @@ def insert_events(events, cur):
             raw_json = EXCLUDED.raw_json,
             loaded_at = NOW()
     """
+    execute_values(cur, query, data_to_insert)
     return cur.rowcount
 
 if __name__ == "__main__":
