@@ -21,15 +21,23 @@ def write_run_log(ti):
     )
     try:
         cur = conn.cursor()
+        cur.execute("""
+            SELECT COUNT(*) 
+            FROM raw.usgs_earthquakes 
+            WHERE loaded_at::date = CURRENT_DATE
+        """)
+        events_today = cur.fetchone()[0]
+
         cur.execute(
             """
             INSERT INTO monitoring.daily_logs
-                (run_date, dag_id, dbt_status, finished_at)
-            VALUES (%s, %s, %s, %s)
+                (run_date, dag_id, events_loaded, dbt_status, finished_at)
+            VALUES (%s, %s, %s, %s, %s)
             """,
             (
                 datetime.now().date(),
                 'earthquake_daily_report',
+                events_today,
                 'success',
                 datetime.now()
             )
