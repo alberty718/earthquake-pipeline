@@ -1,5 +1,5 @@
 with source as (
-    select * from {{ source('raw', 'earthquakes_raw') }}
+    select * from {{ source('raw', 'usgs_earthquakes') }}
 ),
 
 renamed as (

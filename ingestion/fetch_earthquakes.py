@@ -26,7 +26,7 @@ def insert_events(events, cur):
     for event in events:
         cur.execute(
             """
-            INSERT INTO raw.earthquakes_raw (event_id, raw_json)
+            INSERT INTO raw.usgs_earthquakes (event_id, raw_json)
             VALUES (%s, %s)
             ON CONFLICT (event_id) DO NOTHING
             """,

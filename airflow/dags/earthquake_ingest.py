@@ -51,7 +51,7 @@ def insert_task(ti):
 
 def log_task(ti):
     cnt = ti.xcom_pull(task_ids='upsert_to_raw')
-    logger.info(f"Inserted {cnt} events into raw.earthquakes_raw")
+    logger.info(f"Inserted {cnt} events into raw.usgs_earthquakes")
 
 with DAG(
     dag_id='earthquake_ingest',

@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: mart_daily_stats
+  - name: daily_stats
     columns:
       - name: day
         tests:
@@ -11,13 +11,13 @@ models:
         tests:
           - not_null
 
-  - name: mart_region_stats
+  - name: region_stats
     columns:
       - name: region
         tests:
           - not_null
 
-  - name: mart_significant_events
+  - name: significant_events
     columns:
       - name: event_id
         tests:

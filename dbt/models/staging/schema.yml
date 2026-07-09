@@ -4,10 +4,10 @@ sources:
   - name: raw
     schema: raw
     tables:
-      - name: earthquakes_raw
+      - name: usgs_earthquakes
 
 models:
-  - name: stg_earthquakes
+  - name: earthquakes
     columns:
       - name: event_id
         tests:

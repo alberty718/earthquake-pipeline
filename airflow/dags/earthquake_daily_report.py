@@ -23,7 +23,7 @@ def write_run_log(ti):
         cur = conn.cursor()
         cur.execute(
             """
-            INSERT INTO monitoring.daily_run_log 
+            INSERT INTO monitoring.daily_logs
                 (run_date, dag_id, dbt_status, finished_at)
             VALUES (%s, %s, %s, %s)
             """,

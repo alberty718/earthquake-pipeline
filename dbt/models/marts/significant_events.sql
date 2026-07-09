@@ -1,5 +1,5 @@
 with stg as (
-    select * from {{ ref('stg_earthquakes') }}
+    select * from {{ ref('earthquakes') }}
 ),
 
 final as (
