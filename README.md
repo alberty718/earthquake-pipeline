@@ -167,11 +167,3 @@ earthquake-pipeline/
 ## License
 
 MIT
-
----
-
-## Contact
-
-Albert — Telegram [@thealberty](https://t.me/thealberty)
-
-Project: [github.com/alberty718/earthquake-pipeline](https://github.com/alberty718/earthquake-pipeline)
